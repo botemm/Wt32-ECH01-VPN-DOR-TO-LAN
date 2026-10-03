@@ -1,16 +1,24 @@
-WT32 Link / WT32-ETH01 / ESP32 / 4 MB flash
+WT32 Link 1.1.0 — WT32-ETH01 / ESP32 / флешпам’ять 4 МБ
 
-FIRST INSTALL / FACTORY RESET (clears stored settings):
+Запускайте команди з каталогу release. Замініть COM5 на порт свого USB–UART.
+
+ПЕРШЕ ВСТАНОВЛЕННЯ АБО ПОВНЕ СКИДАННЯ
+Стирає попередні налаштування:
 python -m esptool --chip esp32 --port COM5 --baud 460800 write_flash 0x0 wt32-link-factory.bin
 
-UPDATE THIS WT32 LINK VERSION (preserves NVS settings):
-python -m esptool --chip esp32 --port COM5 --baud 460800 write_flash 0x1000 bootloader.bin 0x8000 partitions.bin 0x10000 firmware.bin
+ОНОВЛЕННЯ ВСТАНОВЛЕНОЇ WT32 LINK
+Зберігає налаштування в NVS:
+python -m esptool --chip esp32 --port COM5 --baud 460800 write_flash 0x10000 firmware.bin
 
-Use esptool 4.5.1 syntax shown above; replace COM5 with the correct port.
-Never flash firmware.bin at 0x0: it is an application image for 0x10000.
-Connect UART at 3.3 V logic; enter download mode before flashing.
-After reboot: serial console 115200 gives SSID and admin password.
-Setup URL: http://192.168.4.1  Login: admin
+Не записуйте firmware.bin за адресою 0x0.
+Використовуйте UART із логічними рівнями 3,3 В. Для режиму прошивання
+з’єднайте GPIO0 з GND і перезапустіть плату. Після запису від’єднайте
+GPIO0 від GND та перезапустіть плату ще раз.
 
-Build/test evidence is in README.md and BUILD-REPORT.md in the source project.
-Hardware VPN/NAT acceptance testing is still required.
+Під час чистого встановлення:
+точка доступу WT32-Link-XXXXXX, пароль 12345678;
+панель http://192.168.4.1, логін admin, пароль 12345678.
+Після оновлення збережені паролі залишаються чинними.
+
+Контрольні суми файлів наведені в SHA256SUMS.txt.
+Повну інструкцію та поточний стан перевірок наведено в README.md.
