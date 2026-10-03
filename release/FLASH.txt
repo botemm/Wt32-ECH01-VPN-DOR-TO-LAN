@@ -1,0 +1,16 @@
+WT32 Link / WT32-ETH01 / ESP32 / 4 MB flash
+
+FIRST INSTALL / FACTORY RESET (clears stored settings):
+python -m esptool --chip esp32 --port COM5 --baud 460800 write_flash 0x0 wt32-link-factory.bin
+
+UPDATE THIS WT32 LINK VERSION (preserves NVS settings):
+python -m esptool --chip esp32 --port COM5 --baud 460800 write_flash 0x1000 bootloader.bin 0x8000 partitions.bin 0x10000 firmware.bin
+
+Use esptool 4.5.1 syntax shown above; replace COM5 with the correct port.
+Never flash firmware.bin at 0x0: it is an application image for 0x10000.
+Connect UART at 3.3 V logic; enter download mode before flashing.
+After reboot: serial console 115200 gives SSID and admin password.
+Setup URL: http://192.168.4.1  Login: admin
+
+Build/test evidence is in README.md and BUILD-REPORT.md in the source project.
+Hardware VPN/NAT acceptance testing is still required.

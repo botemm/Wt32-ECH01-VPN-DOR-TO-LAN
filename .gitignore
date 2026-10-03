@@ -1,0 +1,15 @@
+.pio/
+.tools/
+build/
+backups/
+vendor/
+__pycache__/
+*.pyc
+*.log
+*.conf
+sdkconfig
+sdkconfig.old
+sdkconfig.*.old
+sdkconfig.wt32-eth01
+release/*.elf
+release/*-source.zip
